@@ -31,7 +31,7 @@ const blogSchema = new mongoose.Schema({
     },
 })
 
-const BlogModel = mongoose.model.blog || mongoose.model('blog', blogSchema);
+const BlogModel = mongoose.models.blog || mongoose.model('blog', blogSchema);
 
 
 export default BlogModel
