@@ -1,8 +1,10 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
+
+const connectionstring = process.env.MONGODB_URI 
 
 export const connectDB = async () => {
     try {
-        await mongoose.connect('mongodb+srv://najasneju:najas@cluster0.utf8d.mongodb.net/blog-app-next')
+        await mongoose.connect(connectionstring);
         console.log("connected to MongoDB")
     } catch (error) {
       console.log(`Database error: ${error.message}`);
