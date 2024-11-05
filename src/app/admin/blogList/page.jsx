@@ -3,6 +3,7 @@
 import BlogTableItem from "@/components/AdminComponents/BlogTableItem"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { toast } from "sonner"
 
 const page = () => {
   const [blogs, setBlogs] = useState([])
@@ -12,6 +13,21 @@ const page = () => {
     setBlogs(response.data.blogs)
   }
 
+  const deleteBlog = async(mongoId)=>{
+    const response = await axios.delete('/api/blog',{
+      params:{
+        id:mongoId
+      }
+    })
+    console.log(response);
+    
+    if(response.status===200){
+      toast.success(response.data.message)
+      fetchBlogs()
+    }else{
+      toast.error(response.data.message)
+    }
+  }
   useEffect(()=>{
     fetchBlogs()
   },[])
@@ -38,7 +54,7 @@ const page = () => {
       </thead>
       <tbody>
         {blogs.map((item,index)=>(
-          <BlogTableItem key={index} mongoId={item._id} authorImg={item.authorImg} title={item.title} author={item.author} date={item.date}/>
+          <BlogTableItem key={index} mongoId={item._id} authorImg={item.authorImg} title={item.title} author={item.author} date={item.date} deleteBlog={deleteBlog}/>
         ))}
       </tbody>
       </table>
