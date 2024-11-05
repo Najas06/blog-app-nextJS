@@ -4,7 +4,7 @@ import BlogModel from "@/lib/models/BlogModel";
 require("dotenv").config();
 
 const { NextResponse } = require("next/server");
-
+const fs = require('fs')
 import { writeFile } from "fs/promises";
 
 const loadDB = async () => {
@@ -63,4 +63,17 @@ export async function POST(request) {
     return NextResponse.json({ success: false, message: "Database error" });
   }
   // return NextResponse.json({ imgUrl });
+}
+
+// API to delete blog
+export async function DELETE(request){
+  const id = await request.nextUrl.searchParams.get('id')
+  try {
+    const blog = await BlogModel.findById(id);
+    fs.unlink(`./public/${blog.image}`,()=>{})
+    await BlogModel.findByIdAndDelete(id)
+    return NextResponse.json({message:'Blog deleted successfully'})
+  } catch (error) {
+    return NextResponse.json({message:'Database error'})
+  }
 }
