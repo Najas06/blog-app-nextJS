@@ -2,6 +2,7 @@
 import BlogList from "@/components/BlogList";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import { Toaster } from "sonner";
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
       <Header/>
       <BlogList/>
       <Footer/>
+      <Toaster richColors position="top-center"/>
     </main>
   );
 }

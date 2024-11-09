@@ -5,7 +5,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
 
-const page = () => {
+const BlogListPage = () => {
   const [blogs, setBlogs] = useState([])
 
   const fetchBlogs = async()=>{
@@ -63,4 +63,4 @@ const page = () => {
   )
 }
 
-export default page
+export default BlogListPage
